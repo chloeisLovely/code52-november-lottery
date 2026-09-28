@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>코드@52 융합AI 11월 주강사 추첨</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;background:linear-gradient(145deg,#f6f8ff,#fffaf5 55%,#f7fff9);color:#1f2937}.wrap{max-width:1120px;margin:auto;padding:26px 18px 54px}.hero,.panel{background:#fff;border:1px solid #e5e7eb;border-radius:24px;box-shadow:0 14px 36px rgba(31,41,55,.07)}.hero{padding:28px}.panel{margin-top:20px;padding:24px}.badge{display:inline-block;padding:7px 12px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:800;font-size:13px;margin-bottom:10px}h1{margin:0 0 8px;font-size:clamp(28px,4vw,44px)}h2{margin:0 0 12px;font-size:22px}.sub{margin:0;color:#6b7280;line-height:1.7}.notice{margin-top:16px;padding:14px 16px;border-radius:15px;background:#f0fdf4;border:1px solid #bbf7d0;line-height:1.65;font-size:14px}.status{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.pill{padding:8px 12px;border-radius:999px;background:#f3f4f6;font-size:13px;font-weight:700}.formgrid{display:grid;grid-template-columns:minmax(190px,1.2fr) minmax(180px,1fr) auto;gap:10px;align-items:end}label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}input,select{width:100%;border:1px solid #d1d5db;border-radius:14px;padding:13px 14px;font-size:16px;background:white}button{border:0;border-radius:14px;padding:13px 18px;font-size:15px;font-weight:900;cursor:pointer}.primary{background:#4f46e5;color:#fff}.dark{background:#111827;color:#fff}.primary:disabled,.dark:disabled{opacity:.4;cursor:not-allowed}.msg{margin-top:10px;font-size:14px;font-weight:800;min-height:20px}.error{color:#dc2626}.success{color:#15803d}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:9px;margin-top:12px}.choice{border:2px solid #e5e7eb;border-radius:14px;padding:12px 8px;text-align:center;font-weight:900;background:white}.choice.taken{background:#f3f4f6;color:#9ca3af;text-decoration:line-through}.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:14px}.person{border:1px solid #e5e7eb;border-radius:15px;padding:12px;background:#fff}.person b{display:block;font-size:16px}.person span{color:#6b7280;font-size:12px}.person.winner{border:2px solid #f59e0b;background:#fffbeb}.draw{margin-top:14px;border-radius:22px;padding:22px;border:1px dashed #c7d2fe;background:#fafaff}.winnerbox{text-align:center;padding:24px;border-radius:20px;background:#fff;border:1px solid #e5e7eb;margin:16px 0}.rolling{font-size:34px;font-weight:950;min-height:50px}.hidden{display:none!important}.final{text-align:center;padding:32px 20px;background:linear-gradient(135deg,#fff7ed,#eef2ff);border-radius:22px;border:1px solid #fed7aa}.finalnames{font-size:clamp(26px,5vw,44px);font-weight:950;line-height:1.4;margin-top:12px}.small{color:#6b7280;font-size:13px;line-height:1.6}@media(max-width:760px){.formgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+<div class="badge">🎮 CODE@52 · 융합 AI 분과</div>
+<h1>11월 주강사 추첨 게임</h1>
+<p class="sub">11명의 선생님 모두가 추첨 대상입니다. 각자 <b>본인 이름</b>으로 입장하고, 라운드별로 원하는 알파벳을 하나 선택합니다.</p>
+<div class="notice"><b>공정성 원칙</b> · 11명 전원 동일 확률 · 한 사람당 한 번만 등록 · 각 라운드는 단 한 번만 추첨 · ROUND 1 당첨자는 ROUND 2에서 자동 제외 · 완료된 라운드는 새로고침해도 다시 진행되지 않습니다.</div>
+<div class="status"><div class="pill">ROUND 1: 11월 14일 · 2차시 주강사</div><div class="pill">ROUND 2: 11월 21일 · 3차시 주강사</div></div>
+</div>
+
+<div id="round1Panel" class="panel">
+<h2>ROUND 1 🎲 11월 14일 주강사</h2>
+<p class="small">11명 모두 본인 이름으로 입장한 뒤 A~K 중 하나를 선택합니다. 이미 선택된 알파벳은 사용할 수 없습니다.</p>
+<div id="r1Entry"><div class="formgrid">
+<div><label>이름</label><input id="r1Name" placeholder="본인의 이름을 입력하세요" autocomplete="off" /></div>
+<div><label>알파벳 선택</label><select id="r1Choice"></select></div>
+<button class="primary" onclick="register(1)">입장하기</button></div>
+<div id="r1Msg" class="msg"></div><div id="r1Choices" class="choices"></div><div class="people" id="r1People"></div></div>
+<div class="draw"><div class="small">모든 선생님이 입장하면 추첨 버튼이 활성화됩니다.</div>
+<div class="winnerbox"><div id="r1Rolling" class="rolling">11명 입장 대기 중</div></div>
+<button id="r1DrawBtn" class="dark" onclick="draw(1)" disabled>ROUND 1 추첨하기</button></div>
+</div>
+
+<div id="round2Panel" class="panel hidden">
+<h2>ROUND 2 🎲 11월 21일 주강사</h2>
+<p class="small">ROUND 1 당첨자는 자동 제외됩니다. 남은 10명의 선생님이 다시 본인 이름으로 입장해 A~J 중 하나를 선택합니다.</p>
+<div id="r2Entry"><div class="formgrid">
+<div><label>이름</label><input id="r2Name" placeholder="본인의 이름을 입력하세요" autocomplete="off" /></div>
+<div><label>알파벳 선택</label><select id="r2Choice"></select></div>
+<button class="primary" onclick="register(2)">입장하기</button></div>
+<div id="r2Msg" class="msg"></div><div id="r2Choices" class="choices"></div><div class="people" id="r2People"></div></div>
+<div class="draw"><div class="small">ROUND 1 당첨자를 제외한 10명이 모두 입장하면 추첨 버튼이 활성화됩니다.</div>
+<div class="winnerbox"><div id="r2Rolling" class="rolling">ROUND 2 입장 대기 중</div></div>
+<button id="r2DrawBtn" class="dark" onclick="draw(2)" disabled>ROUND 2 추첨하기</button></div>
+</div>
+
+<div id="finalPanel" class="panel hidden"><div class="final"><div style="font-size:44px">🏆</div>
+<h2>2026년 11월 코드@52 주강사가 결정되었습니다!</h2>
+<div id="finalNames" class="finalnames"></div>
+<p class="small">두 라운드가 모두 종료되었습니다. 추첨은 다시 진행할 수 없습니다.</p>
+</div></div></div>
+
+<script>
+const MASTER=["이경심","김보혜","김옥남","김은희","방서연","이하나","이희례","조수현","최서윤","한자혜","손현정"];
+const KEY="code52_nov_2026_lead_draw_v2";
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{round1:{registrations:{},done:false,winner:null,winnerChoice:null},round2:{registrations:{},done:false,winner:null,winnerChoice:null}};
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function letters(n){return Array.from({length:n},(_,i)=>String.fromCharCode(65+i))}
+function normName(v){return(v||"").replace(/\s+/g,"").trim()}
+function eligibleForRound(r){return r===1?[...MASTER]:MASTER.filter(n=>n!==state.round1.winner)}
+function regObj(r){return r===1?state.round1.registrations:state.round2.registrations}
+function expectedCount(r){return r===1?11:10}
+function allowedLetters(r){return letters(expectedCount(r))}
+function register(r){
+ const nEl=document.getElementById(`r${r}Name`),cEl=document.getElementById(`r${r}Choice`),msg=document.getElementById(`r${r}Msg`);
+ const name=normName(nEl.value),choice=cEl.value,allowed=eligibleForRound(r),regs=regObj(r),rs=r===1?state.round1:state.round2;
+ msg.className="msg";
+ if(rs.done){msg.textContent="이미 종료된 라운드입니다.";msg.classList.add("error");return}
+ if(!allowed.includes(name)){msg.textContent="자신의 이름을 작성해 주세요.";msg.classList.add("error");return}
+ if(regs[name]){msg.textContent="이미 입장한 이름입니다.";msg.classList.add("error");return}
+ if(!choice){msg.textContent="알파벳을 선택해 주세요.";msg.classList.add("error");return}
+ if(Object.values(regs).includes(choice)){msg.textContent="이미 다른 선생님이 선택한 알파벳입니다.";msg.classList.add("error");render();return}
+ regs[name]=choice;save();nEl.value="";msg.textContent=`${name} 선생님, ${choice} 선택 완료!`;msg.classList.add("success");render()
+}
+function secureRandomIndex(max){const a=new Uint32Array(1),limit=Math.floor(0x100000000/max)*max;let x;do{crypto.getRandomValues(a);x=a[0]}while(x>=limit);return x%max}
+function draw(r){
+ const rs=r===1?state.round1:state.round2;if(rs.done)return;const regs=regObj(r);if(Object.keys(regs).length!==expectedCount(r))return;
+ const e=Object.entries(regs),[winner,winnerChoice]=e[secureRandomIndex(e.length)],btn=document.getElementById(`r${r}DrawBtn`),rolling=document.getElementById(`r${r}Rolling`);
+ btn.disabled=true;let i=0,pool=e.map(x=>`${x[1]} · ${x[0]}`);
+ const timer=setInterval(()=>{rolling.textContent=pool[secureRandomIndex(pool.length)];i++;if(i>=24){clearInterval(timer);rs.done=true;rs.winner=winner;rs.winnerChoice=winnerChoice;save();rolling.innerHTML=`🎉 ${winnerChoice} · ${winner} 선생님`;setTimeout(()=>{render();document.getElementById(r===1?"round2Panel":"finalPanel").scrollIntoView({behavior:"smooth",block:"start"})},900)}},80)
+}
+function renderRound(r){
+ const rs=r===1?state.round1:state.round2,regs=regObj(r),all=allowedLetters(r),taken=Object.values(regs),select=document.getElementById(`r${r}Choice`),people=document.getElementById(`r${r}People`),choices=document.getElementById(`r${r}Choices`),drawBtn=document.getElementById(`r${r}DrawBtn`),rolling=document.getElementById(`r${r}Rolling`),entry=document.getElementById(`r${r}Entry`);
+ select.innerHTML='<option value="">선택하세요</option>'+all.filter(x=>!taken.includes(x)).map(x=>`<option value="${x}">${x}</option>`).join("");
+ choices.innerHTML=all.map(x=>{const o=Object.entries(regs).find(([_,c])=>c===x);return`<div class="choice ${o?'taken':''}">${x}${o?`<br><span style="font-size:11px">${o[0]}</span>`:''}</div>`}).join("");
+ people.innerHTML=eligibleForRound(r).map(name=>{const c=regs[name],w=rs.done&&rs.winner===name;return`<div class="person ${w?'winner':''}"><b>${name}</b><span>${c?`입장 완료 · ${c}`:'입장 대기'}</span></div>`}).join("");
+ if(rs.done){entry.classList.add("hidden");rolling.innerHTML=`🎉 ${rs.winnerChoice} · ${rs.winner} 선생님`;drawBtn.disabled=true;drawBtn.textContent="추첨 완료"}else{entry.classList.remove("hidden");const count=Object.keys(regs).length;rolling.textContent=`${count} / ${expectedCount(r)}명 입장`;drawBtn.disabled=count!==expectedCount(r)}
+}
+function render(){renderRound(1);if(state.round1.done){document.getElementById("round2Panel").classList.remove("hidden");renderRound(2)}else document.getElementById("round2Panel").classList.add("hidden");if(state.round1.done&&state.round2.done){document.getElementById("finalPanel").classList.remove("hidden");document.getElementById("finalNames").innerHTML=`11월 14일 · 2차시 주강사<br>🎤 <b>${state.round1.winner}</b> 선생님<br><br>11월 21일 · 3차시 주강사<br>🎤 <b>${state.round2.winner}</b> 선생님`}else document.getElementById("finalPanel").classList.add("hidden")}
+render();
+</script>
+</body></html>
